@@ -1,0 +1,37 @@
+/* dialog.css */
+
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Apply border-radius to the close button for a rounded appearance */
+.dialog-header button {
+    border-radius: 5px; /* Adjust the radius as needed */
+}
+
+.dialog-content {
+    margin-top: 10px;
+}

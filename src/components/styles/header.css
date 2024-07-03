@@ -1,0 +1,22 @@
+.header-container {
+    background-color: #F3F3F3;
+    padding: 15px;
+    text-align: center;
+    border: 4px solid #110505;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.header-link {
+    color: black;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s; /* Add a smooth transition effect */
+}
+
+.header-link:hover {
+    color: rgb(252, 97, 97); /* Change the color on hover */
+}
+
