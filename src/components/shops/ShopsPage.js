@@ -4,6 +4,7 @@ import { getShopsList } from "../../api/endpoints/shops";
 import Dialog from "../Dialog";
 import ShopsTable from "./ShopsTable";
 import CreateShop from "./CreateShop";
+import '../styles/page.css'
 
 const ShopsPage = () => {
     const [shops, setShops] = useState([]);
@@ -39,8 +40,9 @@ const ShopsPage = () => {
 
     return (
         <>
-            <div className="page" style={{ margin: '20px' }}>
-                <Header />
+            <Header />
+
+            <div className="page">
 
                 {shops.length > 0 ? (
                     <>

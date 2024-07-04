@@ -1,8 +1,9 @@
+import '../styles/table.css'
 
 const EmployeesTable = ({ employees }) => {
 
     return (
-        <table>
+        <table className="table">
             <thead>
                 <tr>
                     <th>ID</th>

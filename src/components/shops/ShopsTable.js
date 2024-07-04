@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../styles/shops-table.css'
+import '../styles/table.css'
 import Dialog from '../Dialog';
 import { getTotalPriceForCashPurchases } from '../../api/endpoints/shops';
 

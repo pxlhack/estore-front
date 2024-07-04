@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/table.css'
 
 const ElectroItemsTable = ({ items, types }) => {
 
@@ -7,7 +8,7 @@ const ElectroItemsTable = ({ items, types }) => {
     }
 
     return (
-        <table>
+        <table className='table'>
             <thead>
                 <tr>
                     <th>ID</th>

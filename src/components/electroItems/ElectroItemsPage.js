@@ -5,6 +5,7 @@ import { getElectroTypesList } from "../../api/endpoints/electroTypes";
 import ElectroItemsTable from "./ElectroItemsTable";
 import Dialog from "../Dialog";
 import CreateElectroItem from "./CreateElectroItem";
+import '../styles/page.css'
 
 const ElectroItemsPage = () => {
     const [electroItems, setElectroItems] = useState([]);
@@ -44,29 +45,33 @@ const ElectroItemsPage = () => {
         <>
             <Header />
 
-            {electroItems.length > 0 ? (
-                <>
-                    <button onClick={handleOpenDialog} className="add-button">
-                        Добавить товар
-                    </button>
+            <div className="page">
+                {electroItems.length > 0 ? (
+                    <>
+                        <button onClick={handleOpenDialog} className="add-button">
+                            Добавить товар
+                        </button>
 
-                    {isDialogOpen && (<Dialog
-                        title="Добавить новый товар"
-                        onClose={handleCloseDialog}
-                        content={
-                            <CreateElectroItem
-                                onElectroItemCreated={handleElectroItemCreated}
-                                electroTypes={electroTypes}
-                            />
-                        }
-                    />)}
+                        {isDialogOpen && (<Dialog
+                            title="Добавить новый товар"
+                            onClose={handleCloseDialog}
+                            content={
+                                <CreateElectroItem
+                                    onElectroItemCreated={handleElectroItemCreated}
+                                    electroTypes={electroTypes}
+                                />
+                            }
+                        />)}
 
-                    <ElectroItemsTable
-                        items={electroItems}
-                        types={electroTypes}
-                    />
-                </>
-            ) : (<p>Загрузка товаров...</p>)}
+                        <ElectroItemsTable
+                            items={electroItems}
+                            types={electroTypes}
+                        />
+                    </>
+                ) : (<p>Загрузка товаров...</p>)}
+            </div>
+
+
         </>
 
     );

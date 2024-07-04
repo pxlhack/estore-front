@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getEmployeesList } from "../../api/endpoints/employees";
 import EmployeesTable from "./EmployeesTable";
 import Header from "../Header";
+import '../styles/page.css'
 
 const EmployeesPage = () => {
     const [employees, setEmployees] = useState([]);
@@ -35,12 +36,15 @@ const EmployeesPage = () => {
         <>
             <Header />
 
-            {employees.length > 0 ? (
-                <>
+            <div className="page">
 
-                    <EmployeesTable employees={employees} />
-                </>
-            ) : (<p>Загрузка сотрудников...</p>)}
+                {employees.length > 0 ? (
+                    <>
+
+                        <EmployeesTable employees={employees} />
+                    </>
+                ) : (<p>Загрузка сотрудников...</p>)}
+            </div>
         </>
     );
 
