@@ -39,25 +39,27 @@ const ShopsPage = () => {
 
     return (
         <>
-            <Header />
+            <div className="page" style={{ margin: '20px' }}>
+                <Header />
 
-            {shops.length > 0 ? (
-                <>
-                    <button onClick={handleOpenDialog} className="add-button">
-                        Добавить магазин
-                    </button>
+                {shops.length > 0 ? (
+                    <>
+                        <button onClick={handleOpenDialog} className="add-button">
+                            Добавить магазин
+                        </button>
 
-                    {isDialogOpen && (<Dialog
-                        title="Добавить новый магазин"
-                        onClose={handleCloseDialog}
-                        content={
-                            <CreateShop onShopCreated={handleShopCreated} />
-                        }
-                    />)}
+                        {isDialogOpen && (<Dialog
+                            title="Добавить новый магазин"
+                            onClose={handleCloseDialog}
+                            content={
+                                <CreateShop onShopCreated={handleShopCreated} />
+                            }
+                        />)}
 
-                    <ShopsTable shops={shops} />
-                </>
-            ) : (<p>Загрузка магазинов...</p>)}
+                        <ShopsTable shops={shops} />
+                    </>
+                ) : (<p>Загрузка магазинов...</p>)}
+            </div>
         </>
 
     );

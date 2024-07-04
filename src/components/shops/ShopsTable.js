@@ -1,7 +1,8 @@
+import '../styles/shops-table.css'
 
 const ShopsTable = ({ shops }) => {
     return (
-        <table>
+        <table className="table">
             <thead>
                 <tr>
                     <th>ID</th>
