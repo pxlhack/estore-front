@@ -3,6 +3,7 @@ import Header from "../Header";
 import { getShopsList } from "../../api/endpoints/shops";
 import Dialog from "../Dialog";
 import ShopsTable from "./ShopsTable";
+import CreateShop from "./CreateShop";
 
 const ShopsPage = () => {
     const [shops, setShops] = useState([]);
@@ -46,20 +47,15 @@ const ShopsPage = () => {
                         Добавить магазин
                     </button>
 
-                    {/* {isDialogOpen && (<Dialog
+                    {isDialogOpen && (<Dialog
                         title="Добавить новый магазин"
                         onClose={handleCloseDialog}
                         content={
-                            <CreateElectroItem
-                                onElectroItemCreated={handleShopCreated}
-                                electroTypes={electroTypes}
-                            />
+                            <CreateShop onShopCreated={handleShopCreated} />
                         }
-                    />)} */}
+                    />)}
 
-                    <ShopsTable
-                        shops={shops}
-                    />
+                    <ShopsTable shops={shops} />
                 </>
             ) : (<p>Загрузка магазинов...</p>)}
         </>
