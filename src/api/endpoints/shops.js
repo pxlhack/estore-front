@@ -10,4 +10,8 @@ const createShop = async (data) => {
     return postApiData(source, data);
 };
 
-export { getShopsList, createShop }
+const getTotalPriceForCashPurchases = async (id) => {
+    return getApiData(`${source}/${id}/sales-sum-for-cash`);
+}
+
+export { getShopsList, createShop, getTotalPriceForCashPurchases }

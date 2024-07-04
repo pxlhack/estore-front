@@ -19,7 +19,7 @@ const Dialog = ({ title, content, onClose }) => {
                             <button onClick={handleClose}>Close</button>
                         </div>
                         <div className="dialog-content">
-                            <p>{content}</p>
+                            {content}
                         </div>
                     </div>
                 </div>

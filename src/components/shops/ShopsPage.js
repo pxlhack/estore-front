@@ -48,13 +48,14 @@ const ShopsPage = () => {
                             Добавить магазин
                         </button>
 
-                        {isDialogOpen && (<Dialog
-                            title="Добавить новый магазин"
-                            onClose={handleCloseDialog}
-                            content={
-                                <CreateShop onShopCreated={handleShopCreated} />
-                            }
-                        />)}
+                        {isDialogOpen && (
+                            <Dialog
+                                title="Добавить новый магазин"
+                                onClose={handleCloseDialog}
+                                content={
+                                    <CreateShop onShopCreated={handleShopCreated} />
+                                }
+                            />)}
 
                         <ShopsTable shops={shops} />
                     </>
