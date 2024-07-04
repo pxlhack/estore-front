@@ -6,7 +6,7 @@ import ElectroItemsTable from "./ElectroItemsTable";
 import Dialog from "../Dialog";
 import CreateElectroItem from "./CreateElectroItem";
 
-function ElectroItemsPage() {
+const ElectroItemsPage = () => {
     const [electroItems, setElectroItems] = useState([]);
     const [electroTypes, setElectroTypes] = useState([]);
     const [isDialogOpen, setIsDialogOpen] = useState(false);

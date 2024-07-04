@@ -8,6 +8,7 @@ function Header() {
             <div className="header-container">
                 <header>
                     <Link to="/electro-items" className="header-link">Товары</Link>
+                    <Link to="/shops" className="header-link">Магазины</Link>
                 </header>
             </div>
         </>
