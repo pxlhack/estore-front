@@ -4,6 +4,7 @@ const apiUrl = 'http://localhost:8081/estore/api';
 
 const getApiData = async (endpoint) => {
     try {
+        console.log(endpoint);
         const response = await axios.get(`${apiUrl}/${endpoint}`);
         return response.data;
     } catch (error) {
@@ -21,7 +22,6 @@ const postApiData = async (endpoint, data) => {
         console.log(endpoint);
         console.log(data);
         const response = await axios.post(`${apiUrl}/${endpoint}`, data);
-        console.log(response);
         return response.data;
     } catch (error) {
         console.error('Error posting data:', error);
