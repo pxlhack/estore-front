@@ -3,9 +3,20 @@ import { getPurchaseTypesList } from '../../api/endpoints/purchaseTypes'
 import Header from "../Header";
 import '../styles/page.css'
 import '../styles/table.css'
+import Dialog from "../Dialog";
+import CreatePurchaseType from "./CreatePurchaseType";
 
 const PurchaseTypesPage = () => {
     const [purchaseTypes, setPurchaseTypes] = useState([]);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const handleOpenDialog = () => {
+        setIsDialogOpen(true);
+    };
+
+    const handleCloseDialog = () => {
+        setIsDialogOpen(false);
+    };
 
 
     useEffect(() => {
@@ -23,14 +34,35 @@ const PurchaseTypesPage = () => {
         fetchPurchaseTypesList();
     }, []);
 
+    const handlePurchaseTypeCreated = (createdPurchaseType) => {
+        setPurchaseTypes([...purchaseTypes, createdPurchaseType]);
+    };
+
     return (
         <>
             <Header />
+
             <div className="page">
+
                 <h2>Способы оплаты</h2>
+
                 {purchaseTypes.length > 0 ? (
                     <div>
-                        <table className="table">
+
+                        <button onClick={handleOpenDialog} className="add-button">
+                            Добавить способ оплаты
+                        </button>
+
+                        {isDialogOpen && (
+                            <Dialog
+                                title="Добавить способ оплаты"
+                                onClose={handleCloseDialog}
+                                content={
+                                    <CreatePurchaseType onPurchaseTypeCreated={handlePurchaseTypeCreated} />
+                                }
+                            />)}
+
+                        <table className="table table-with-margin">
                             <thead>
                                 <tr>
                                     <th>ID</th>

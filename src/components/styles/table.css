@@ -27,3 +27,8 @@
 .table a:hover {
     color: rgb(252, 97, 97);
 }
+
+.table-with-margin {
+    margin-right: 30% !important;
+    width: calc(100% - 30%) !important;
+}
