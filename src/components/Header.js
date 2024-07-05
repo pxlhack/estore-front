@@ -11,6 +11,7 @@ function Header() {
                     <Link to="/shops" className="header-link">Магазины</Link>
                     <Link to="/employees" className="header-link">Сотрудники</Link>
                     <Link to="/purchases" className="header-link">Покупки</Link>
+                    <Link to="/purchase-types" className="header-link">Способы оплаты</Link>
                 </header>
             </div>
         </>
