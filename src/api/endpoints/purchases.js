@@ -6,4 +6,8 @@ const getPurchasesList = async () => {
     return getApiData(source);
 }
 
-export { getPurchasesList }
+const createPurchase = (data) => {
+    return postApiData(source, data);
+}
+
+export { getPurchasesList, createPurchase }
