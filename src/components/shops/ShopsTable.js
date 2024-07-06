@@ -3,7 +3,7 @@ import '../styles/table.css'
 import Dialog from '../Dialog';
 import { getTotalPriceForCashPurchases } from '../../api/endpoints/shops';
 
-const ShopsTable = ({ shops }) => {
+const ShopsTable = ({ shops, onCreatePurchase }) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [currentShopId, setCurrentShopId] = useState(0);
     const [cashTotal, setCashTotal] = useState(null);
@@ -38,6 +38,7 @@ const ShopsTable = ({ shops }) => {
                     <th>Название</th>
                     <th>Адрес</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +63,11 @@ const ShopsTable = ({ shops }) => {
                                         )
                                     }
                                 />)}
+                        </td>
+                        <td>
+                            <button onClick={() => onCreatePurchase(shop.id)}>
+                                Создать покупку
+                            </button>
                         </td>
                     </tr>
                 ))}
