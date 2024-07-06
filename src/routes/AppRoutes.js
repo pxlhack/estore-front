@@ -6,6 +6,7 @@ import ShopsRoutes from './ShopsRoutes';
 import EmployeesRoutes from './EmployeesRoutes';
 import PurchasesRoutes from './PurchasesRoutes';
 import PurchaseTypesRoutes from './PurchaseTypesRoutes';
+import PositionTypesRoutes from './PositionTypesRoutes';
 
 
 const AppRoutes = () => {
@@ -17,6 +18,7 @@ const AppRoutes = () => {
             <Route path="/employees/*" element={<EmployeesRoutes />} />
             <Route path="/purchases/*" element={<PurchasesRoutes />} />
             <Route path="/purchase-types/*" element={<PurchaseTypesRoutes />} />
+            <Route path="/position-types/*" element={<PositionTypesRoutes />} />
         </Routes>
     );
 };
