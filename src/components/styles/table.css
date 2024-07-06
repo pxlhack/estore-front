@@ -32,3 +32,25 @@
     margin-right: 30% !important;
     width: calc(100% - 30%) !important;
 }
+
+.table th {
+    position: relative;
+    padding-right: 20px;
+}
+
+.table th span {
+    position: absolute;
+    right: 5px;
+}
+
+.table th[aria-sort='asc'] {
+    background-color: #f0f0f0;
+}
+
+.table th[aria-sort='desc'] {
+    background-color: #f0f0f0;
+}
+
+.table th[aria-sort='none'] {
+    background-color: transparent;
+}
