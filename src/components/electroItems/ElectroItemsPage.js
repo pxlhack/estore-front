@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../Header";
-import { getElectroItemsList } from "../../api/endpoints/electroItems";
+import { getElectroItemsPage } from "../../api/endpoints/electroItems";
 import { getElectroTypesList } from "../../api/endpoints/electroTypes";
 import ElectroItemsTable from "./ElectroItemsTable";
 import Dialog from "../Dialog";
@@ -11,6 +11,11 @@ const ElectroItemsPage = () => {
     const [electroItems, setElectroItems] = useState([]);
     const [electroTypes, setElectroTypes] = useState([]);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalItems, setTotalItems] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+    const size = 10; // количество элементов на странице
 
     const handleOpenDialog = () => {
         setIsDialogOpen(true);
@@ -21,21 +26,31 @@ const ElectroItemsPage = () => {
     };
 
     useEffect(() => {
-        async function fetchElectroItemsList() {
+        async function fetchData() {
             try {
-                const [electroItemData, electroTypeData] = await Promise.all([getElectroItemsList(), getElectroTypesList()]);
+                setIsLoading(true);
+                const [electroItemData, electroTypeData] = await Promise.all([
+                    getElectroItemsPage(currentPage, size),
+                    getElectroTypesList()
+                ]);
 
-                setElectroItems(electroItemData);
+                setElectroItems(electroItemData.items);
+                setTotalPages(electroItemData.totalPages);
+                setTotalItems(electroItemData.totalItems);
                 setElectroTypes(electroTypeData);
-
             } catch (error) {
-                // Handle error
+                console.error("Error fetching data:", error);
+            } finally {
+                setIsLoading(false);
             }
         }
 
-        fetchElectroItemsList();
-    }, []);
+        fetchData();
+    }, [currentPage]);
 
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
 
     const handleElectroItemCreated = (createdElectroItem) => {
         setElectroItems([...electroItems, createdElectroItem]);
@@ -46,34 +61,40 @@ const ElectroItemsPage = () => {
             <Header />
 
             <div className="page">
-                {electroItems.length > 0 ? (
+                {isLoading ? (
+                    <p>Загрузка товаров...</p>
+                ) : (
                     <>
                         <button onClick={handleOpenDialog} className="add-button">
                             Добавить товар
                         </button>
 
-                        {isDialogOpen && (<Dialog
-                            title="Добавить новый товар"
-                            onClose={handleCloseDialog}
-                            content={
-                                <CreateElectroItem
-                                    onElectroItemCreated={handleElectroItemCreated}
-                                    electroTypes={electroTypes}
-                                />
-                            }
-                        />)}
+                        {isDialogOpen && (
+                            <Dialog
+                                title="Добавить новый товар"
+                                onClose={handleCloseDialog}
+                                content={
+                                    <CreateElectroItem
+                                        onElectroItemCreated={handleElectroItemCreated}
+                                        electroTypes={electroTypes}
+                                    />
+                                }
+                            />
+                        )}
 
                         <ElectroItemsTable
                             items={electroItems}
                             types={electroTypes}
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            totalItems={totalItems}
+                            onPageChange={handlePageChange}
+                            itemsPerPage={size}
                         />
                     </>
-                ) : (<p>Загрузка товаров...</p>)}
+                )}
             </div>
-
-
         </>
-
     );
 };
 
