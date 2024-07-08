@@ -10,4 +10,12 @@ const createEmployee = async (data) => {
     return postApiData(source, data);
 };
 
-export { getEmployeesList, createEmployee }
+const getTopEmployeesByPositionAndSalesSum = async () => {
+    return getApiData(`${source}/top-by-position/sales-sum`)
+}
+
+const getTopEmployeesByPositionAndSalesCount = async () => {
+    return getApiData(`${source}/top-by-position/sales-count`)
+}
+
+export { getEmployeesList, createEmployee, getTopEmployeesByPositionAndSalesSum, getTopEmployeesByPositionAndSalesCount }
