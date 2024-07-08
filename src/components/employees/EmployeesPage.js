@@ -1,32 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { getEmployeesList } from "../../api/endpoints/employees";
-import EmployeesTable from "./EmployeesTable";
-import CreateEmployee from "./CreateEmployee";
-import Header from "../Header";
-import Dialog from "../Dialog";
+import React, { useEffect, useState } from 'react';
+import { getEmployeesList } from '../../api/endpoints/employees';
+import { getShopsList } from '../../api/endpoints/shops';
+import EmployeesTable from './EmployeesTable';
+import CreateEmployee from './CreateEmployee';
+import Header from '../Header';
+import Dialog from '../Dialog';
+import { getPositionTypesList } from '../../api/endpoints/positionTypes';
 
 const EmployeesPage = () => {
     const [employees, setEmployees] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingEmployees, setIsLoadingEmployees] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [shops, setShops] = useState([]);
+    const [positionTypes, setPositionTypes] = useState([]);
 
     useEffect(() => {
-        async function fetchEmployeesList() {
+        const fetchData = async () => {
             try {
-                const [employeesData] = await Promise.all([getEmployeesList()]);
+                const employeesData = await getEmployeesList();
                 setEmployees(employeesData);
+                setIsLoadingEmployees(false);
             } catch (error) {
                 console.error('Error fetching employees:', error);
-                // Handle error
-            } finally {
-                setIsLoading(false);
+                setIsLoadingEmployees(false);
             }
-        }
+        };
 
-        fetchEmployeesList();
+        fetchData();
     }, []);
 
+    const fetchShopsAndPositionTypes = async () => {
+        try {
+            const [shopsData, positionTypesData] = await Promise.all([
+                getShopsList(),
+                getPositionTypesList()
+            ]);
+            setShops(shopsData);
+            setPositionTypes(positionTypesData);
+        } catch (error) {
+            console.error('Error fetching shops and position types:', error);
+        }
+    };
+
     const handleOpenDialog = () => {
+        fetchShopsAndPositionTypes();
         setIsDialogOpen(true);
     };
 
@@ -36,8 +53,6 @@ const EmployeesPage = () => {
 
     const handleEmployeeCreated = (createdEmployee) => {
         setEmployees([...employees, createdEmployee]);
-        setIsDialogOpen(false); // Close the dialog after creating employee
-        // Optionally show a notification or alert
     };
 
     return (
@@ -56,12 +71,16 @@ const EmployeesPage = () => {
                         title="Добавить сотрудника"
                         onClose={handleCloseDialog}
                         content={
-                            <CreateEmployee onEmployeeCreated={handleEmployeeCreated} />
+                            <CreateEmployee
+                                onEmployeeCreated={handleEmployeeCreated}
+                                shops={shops}
+                                positionTypes={positionTypes}
+                            />
                         }
                     />
                 )}
 
-                {isLoading ? (
+                {isLoadingEmployees ? (
                     <p>Загрузка сотрудников...</p>
                 ) : employees.length > 0 ? (
                     <EmployeesTable employees={employees} />
