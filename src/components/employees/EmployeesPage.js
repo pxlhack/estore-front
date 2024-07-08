@@ -1,15 +1,30 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getEmployeesList } from "../../api/endpoints/employees";
 import EmployeesTable from "./EmployeesTable";
 import CreateEmployee from "./CreateEmployee";
 import Header from "../Header";
-import '../styles/page.css'
 import Dialog from "../Dialog";
 
 const EmployeesPage = () => {
     const [employees, setEmployees] = useState([]);
-
+    const [isLoading, setIsLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    useEffect(() => {
+        async function fetchEmployeesList() {
+            try {
+                const [employeesData] = await Promise.all([getEmployeesList()]);
+                setEmployees(employeesData);
+            } catch (error) {
+                console.error('Error fetching employees:', error);
+                // Handle error
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchEmployeesList();
+    }, []);
 
     const handleOpenDialog = () => {
         setIsDialogOpen(true);
@@ -19,51 +34,43 @@ const EmployeesPage = () => {
         setIsDialogOpen(false);
     };
 
-    useEffect(() => {
-        async function fetchEmployeesList() {
-            try {
-                const [employeesData] = await Promise.all([getEmployeesList()]);
-
-                setEmployees(employeesData);
-
-            } catch (error) {
-                // Handle error
-            }
-        }
-
-        fetchEmployeesList();
-    }, []);
-
     const handleEmployeeCreated = (createdEmployee) => {
         setEmployees([...employees, createdEmployee]);
+        setIsDialogOpen(false); // Close the dialog after creating employee
+        // Optionally show a notification or alert
     };
 
     return (
         <>
             <Header />
 
-            <button onClick={handleOpenDialog} className="add-button">
-                Добавить сотрудника
-            </button>
-
-            {isDialogOpen && (
-                <Dialog
-                    title="Добавить сотрудника"
-                    onClose={handleCloseDialog}
-                    content={
-                        <CreateEmployee onEmployeeCreated={handleEmployeeCreated} />
-                    }
-                />)}
-
-
             <div className="page">
-                {employees.length > 0 ? (
+                <h2>Сотрудники</h2>
+
+                <button onClick={handleOpenDialog} className="add-button">
+                    Добавить сотрудника
+                </button>
+
+                {isDialogOpen && (
+                    <Dialog
+                        title="Добавить сотрудника"
+                        onClose={handleCloseDialog}
+                        content={
+                            <CreateEmployee onEmployeeCreated={handleEmployeeCreated} />
+                        }
+                    />
+                )}
+
+                {isLoading ? (
+                    <p>Загрузка сотрудников...</p>
+                ) : employees.length > 0 ? (
                     <EmployeesTable employees={employees} />
-                ) : (<p>Загрузка сотрудников...</p>)}
+                ) : (
+                    <p>Нет сотрудников</p>
+                )}
             </div>
         </>
     );
-
-}
+};
 
 export default EmployeesPage;
