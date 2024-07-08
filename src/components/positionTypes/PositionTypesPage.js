@@ -46,41 +46,37 @@ const PositionTypesPage = () => {
 
                 <h2>Должности</h2>
 
+                <button onClick={handleOpenDialog} className="add-button">
+                    Добавить должность
+                </button>
+
+                {isDialogOpen && (
+                    <Dialog
+                        title="Добавить lдолжность"
+                        onClose={handleCloseDialog}
+                        content={
+                            <CreatePositionType onPositionTypeCreated={handlePositionTypeCreated} />
+                        }
+                    />)}
+
                 {positionTypes.length > 0 ? (
-                    <div>
+                    <table className="table table-with-margin">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Название</th>
+                            </tr>
+                        </thead>
 
-                        <button onClick={handleOpenDialog} className="add-button">
-                            Добавить должность
-                        </button>
-
-                        {isDialogOpen && (
-                            <Dialog
-                                title="Добавить способ оплаты"
-                                onClose={handleCloseDialog}
-                                content={
-                                    <CreatePositionType onPositionTypeCreated={handlePositionTypeCreated} />
-                                }
-                            />)}
-
-                        <table className="table table-with-margin">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Название</th>
+                        <tbody>
+                            {positionTypes.map(positionType => (
+                                <tr key={positionType.id}>
+                                    <td>{positionType.id}</td>
+                                    <td>{positionType.name}</td>
                                 </tr>
-                            </thead>
-
-                            <tbody>
-                                {positionTypes.map(positionType => (
-                                    <tr key={positionType.id}>
-                                        <td>{positionType.id}</td>
-                                        <td>{positionType.name}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-
-                    </div>
+                            ))}
+                        </tbody>
+                    </table>
 
                 ) : (
                     <p>Загрузка должностей...</p>
