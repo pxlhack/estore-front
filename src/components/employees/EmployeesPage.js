@@ -6,6 +6,8 @@ import CreateEmployee from './CreateEmployee';
 import Header from '../Header';
 import Dialog from '../Dialog';
 import { getPositionTypesList } from '../../api/endpoints/positionTypes';
+import TopEmployeeBySalesSum from './TopEmployeeBySalesSum';
+import { Link } from 'react-router-dom';
 
 const EmployeesPage = () => {
     const [employees, setEmployees] = useState([]);
@@ -65,6 +67,12 @@ const EmployeesPage = () => {
                 <button onClick={handleOpenDialog} className="add-button">
                     Добавить сотрудника
                 </button>
+                <br />
+
+                <Link to="/employees/top-by-position/sales-sum">
+                    <button className="btn">Лучшие сотрудники по сумме продаж</button>
+                </Link>
+
 
                 {isDialogOpen && (
                     <Dialog
