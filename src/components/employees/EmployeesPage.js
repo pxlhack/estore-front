@@ -68,11 +68,18 @@ const EmployeesPage = () => {
                     Добавить сотрудника
                 </button>
                 <br />
+                <br />
 
                 <Link to="/employees/top-by-position/sales-sum">
                     <button className="btn">Лучшие сотрудники по сумме продаж</button>
                 </Link>
+                <br />
+                <br />
 
+                <Link to="/employees/top-by-position/sales-count">
+                    <button className="btn">Лучшие сотрудники по количеству проданных товаров</button>
+                </Link>
+                <br />
 
                 {isDialogOpen && (
                     <Dialog
