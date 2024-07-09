@@ -6,7 +6,6 @@ import CreateEmployee from './CreateEmployee';
 import Header from '../Header';
 import Dialog from '../Dialog';
 import { getPositionTypesList } from '../../api/endpoints/positionTypes';
-import TopEmployeeBySalesSum from './TopEmployeeBySalesSum';
 import { Link } from 'react-router-dom';
 
 const EmployeesPage = () => {
@@ -78,6 +77,12 @@ const EmployeesPage = () => {
 
                 <Link to="/employees/top-by-position/sales-count">
                     <button className="btn">Лучшие сотрудники по количеству проданных товаров</button>
+                </Link>
+                <br />
+                <br />
+
+                <Link to="/employees/top">
+                    <button className="btn">Лучшие сотрудники по должности и типу товаров</button>
                 </Link>
                 <br />
 
