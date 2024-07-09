@@ -14,8 +14,8 @@ const ShopsPage = () => {
     const [isCreateShopDialogOpen, setIsCreateShopDialogOpen] = useState(false);
     const [isCreatePurchaseDialogOpen, setIsCreatePurchaseDialogOpen] = useState(false);
     const [selectedShopId, setSelectedShopId] = useState(null);
-    const [electroItems, setElectroItems] = useState([]); // Необходимо загрузить
-    const [purchaseTypes, setPurchaseTypes] = useState([]); // Необходимо загрузить
+    const [electroItems, setElectroItems] = useState([]);
+    const [purchaseTypes, setPurchaseTypes] = useState([]);
 
     const handleOpenCreateShopDialog = () => {
         setIsCreateShopDialogOpen(true);

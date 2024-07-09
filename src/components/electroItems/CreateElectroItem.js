@@ -25,6 +25,7 @@ const CreateElectroItem = ({ onElectroItemCreated, electroTypes }) => {
     };
 
     const handleCreateElectroItem = async () => {
+        console.log(electroTypes);
         try {
             const newElectroItem = {
                 name: name,
