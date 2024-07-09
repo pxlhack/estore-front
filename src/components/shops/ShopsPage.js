@@ -68,6 +68,7 @@ const ShopsPage = () => {
             <Header />
 
             <div className="page">
+                <h2>Магазины</h2>
                 {shops.length > 0 ? (
                     <>
                         <button onClick={handleOpenCreateShopDialog} className="add-button">
