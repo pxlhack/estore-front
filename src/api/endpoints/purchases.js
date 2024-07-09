@@ -10,4 +10,8 @@ const createPurchase = (data) => {
     return postApiData(source, data);
 }
 
-export { getPurchasesList, createPurchase }
+const getPurchasesPageSorted = async (page, size, ascending) => {
+    return getApiData(`${source}/page/sort?page=${page}&size=${size}&ascending=${ascending}`);
+};
+
+export { getPurchasesList, createPurchase, getPurchasesPageSorted }
