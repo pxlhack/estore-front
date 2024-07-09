@@ -1,30 +1,44 @@
 import Header from "../Header";
 import { getElectroItemsPage } from "../../api/endpoints/electroItems";
 import { getElectroTypesList } from "../../api/endpoints/electroTypes";
+import { getShopsList } from "../../api/endpoints/shops";
 import { useEffect, useState } from "react";
 import Dialog from "../Dialog";
 import CreateElectroItem from "./CreateElectroItem";
+import AddElectroItemToShop from "./AddElectroItemToShop";
 
 const ElectroItemsPageWithTable = () => {
     const [electroItems, setElectroItems] = useState([]);
     const [electroTypes, setElectrotypes] = useState([]);
+    const [shops, setShops] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+    const [isAddToShopDialogOpen, setIsAddToShopDialogOpen] = useState(false);
     const [totalItems, setTotalItems] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const size = 6;
+    const [selectedElectroItemId, setSelectedElectroItemId] = useState(null);
 
 
-    const handleOpenDialog = () => {
+    const handleOpenCreateDialog = () => {
         fetchElectroTypes();
-        setIsDialogOpen(true);
-
+        setIsCreateDialogOpen(true);
     };
 
-    const handleCloseDialog = () => {
-        setIsDialogOpen(false);
+    const handleCloseCreateDialog = () => {
+        setIsCreateDialogOpen(false);
+    };
+
+    const handleOpenAddToShopDialog = (itemId) => {
+        setSelectedElectroItemId(itemId);
+        fetchShops();
+        setIsAddToShopDialogOpen(true);
+    };
+
+    const handleCloseAddToShopDialog = () => {
+        setIsAddToShopDialogOpen(false);
     };
 
     const fetchElectroItems = async () => {
@@ -70,6 +84,15 @@ const ElectroItemsPageWithTable = () => {
         }
     };
 
+    const fetchShops = async () => {
+        try {
+            const shopsData = await getShopsList();
+            setShops(shopsData);
+        } catch (error) {
+            console.error('Error fetching shops:', error);
+        }
+    };
+
     const handleElectroItemCreated = (createdElectroItem) => {
         setElectroItems([...electroItems, createdElectroItem]);
     };
@@ -80,18 +103,34 @@ const ElectroItemsPageWithTable = () => {
             <div className="page">
                 <h2>Товары</h2>
 
-                <button onClick={handleOpenDialog} className="add-button">
+                <button onClick={handleOpenCreateDialog} className="add-button">
                     Добавить товар
                 </button>
 
-                {isDialogOpen && (
+                {isCreateDialogOpen && (
                     <Dialog
                         title="Добавить новый товар"
-                        onClose={handleCloseDialog}
+                        onClose={handleCloseCreateDialog}
                         content={
                             <CreateElectroItem
                                 onElectroItemCreated={handleElectroItemCreated}
                                 electroTypes={electroTypes}
+                            />
+                        }
+                    />
+                )}
+
+                {isAddToShopDialogOpen && (
+                    <Dialog
+                        title="Добавить товар в магазин"
+                        onClose={handleCloseAddToShopDialog}
+                        content={
+                            <AddElectroItemToShop
+                                electroItemId={selectedElectroItemId}
+                                shops={shops}
+                                onAddSuccess={() => {
+                                    handleCloseAddToShopDialog();
+                                }}
                             />
                         }
                     />
@@ -106,6 +145,7 @@ const ElectroItemsPageWithTable = () => {
                             <th>Цена</th>
                             <th>Описание</th>
                             <th>Архив</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -117,6 +157,11 @@ const ElectroItemsPageWithTable = () => {
                                 <td>{item.price}</td>
                                 <td>{item.description}</td>
                                 <td>{item.archive ? "Да" : "Нет"}</td>
+                                <td>
+                                    <button onClick={() => handleOpenAddToShopDialog(item.id)} className="add-button">
+                                        Добавить товар в магазин
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

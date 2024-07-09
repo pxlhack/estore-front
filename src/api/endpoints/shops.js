@@ -18,4 +18,8 @@ const getEmployeesByShopId = async (id) => {
     return getApiData(`${source}/${id}/employee`)
 }
 
-export { getShopsList, createShop, getTotalPriceForCashPurchases, getEmployeesByShopId }
+const addElectroItem = async (id, electroItemId, count) => {
+    return postApiData(`${source}/${id}/electro-item?electroItemId=${electroItemId}&count=${count}`)
+}
+
+export { getShopsList, createShop, getTotalPriceForCashPurchases, getEmployeesByShopId, addElectroItem }
