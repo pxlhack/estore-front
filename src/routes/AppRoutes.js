@@ -6,11 +6,13 @@ import EmployeesRoutes from './EmployeesRoutes';
 import PurchasesRoutes from './PurchasesRoutes';
 import PurchaseTypesRoutes from './PurchaseTypesRoutes';
 import PositionTypesRoutes from './PositionTypesRoutes';
+import Home from '../components/Home';
 
 
 const AppRoutes = () => {
     return (
         <Routes>
+            <Route path="/*" element={<Home />} />
             <Route path="/electro-items/*" element={<ElectroItemsRoutes />} />
             <Route path="/shops/*" element={<ShopsRoutes />} />
             <Route path="/employees/*" element={<EmployeesRoutes />} />
